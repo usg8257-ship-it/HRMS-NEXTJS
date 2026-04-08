@@ -13,149 +13,138 @@ export default function LoginPage() {
   const [error, setError] = useState('')
 
   async function handleLogin() {
-    if (!email || !password) { setError('Email and password required'); return }
+    if (!email || !password) { setError('Please enter your email and password.'); return }
     setLoading(true); setError('')
     try {
       const r: any = await GAS.login(email, password)
-      if (!r?.success) { setError(r?.error || 'Invalid credentials'); setLoading(false); return }
+      if (!r?.success) { setError(r?.error || 'Invalid email or password.'); setLoading(false); return }
       login(r.token, r.profile)
       router.replace('/dashboard')
     } catch {
-      setError('Connection error — check your network')
+      setError('Unable to connect. Please check your internet connection.')
       setLoading(false)
     }
   }
 
   return (
     <div style={{
-      minHeight: '100vh', background: '#080c18',
-      display: 'flex', alignItems: 'center', justifyContent: 'center',
-      fontFamily: "'DM Sans', sans-serif", position: 'relative', overflow: 'hidden',
+      minHeight:'100vh',
+      background:'var(--apple-gray1)',
+      display:'flex',
+      alignItems:'center',
+      justifyContent:'center',
+      fontFamily:'-apple-system,"SF Pro Text","Helvetica Neue",sans-serif',
     }}>
-      {/* Grid */}
+      {/* Background gradient - Apple style */}
       <div style={{
-        position: 'absolute', inset: 0, opacity: 0.4,
-        backgroundImage: `linear-gradient(rgba(0,122,138,.06) 1px, transparent 1px),
-                          linear-gradient(90deg, rgba(0,122,138,.06) 1px, transparent 1px)`,
-        backgroundSize: '44px 44px',
+        position:'fixed', inset:0, zIndex:0,
+        background:'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,113,227,.08) 0%, transparent 70%)',
+        pointerEvents:'none',
       }} />
 
-      {/* Glow orbs */}
-      <div style={{ position:'absolute', top:'20%', left:'15%', width:320, height:320,
-        background:'radial-gradient(circle, rgba(30,71,153,.15) 0%, transparent 70%)', filter:'blur(40px)' }} />
-      <div style={{ position:'absolute', bottom:'20%', right:'15%', width:280, height:280,
-        background:'radial-gradient(circle, rgba(0,122,138,.12) 0%, transparent 70%)', filter:'blur(40px)' }} />
-
-      {/* Corner brackets */}
-      {[
-        { top:20, left:20, borderTop:'2px solid rgba(0,122,138,.5)', borderLeft:'2px solid rgba(0,122,138,.5)' },
-        { top:20, right:20, borderTop:'2px solid rgba(0,122,138,.5)', borderRight:'2px solid rgba(0,122,138,.5)' },
-        { bottom:20, left:20, borderBottom:'2px solid rgba(0,122,138,.5)', borderLeft:'2px solid rgba(0,122,138,.5)' },
-        { bottom:20, right:20, borderBottom:'2px solid rgba(0,122,138,.5)', borderRight:'2px solid rgba(0,122,138,.5)' },
-      ].map((s, i) => (
-        <div key={i} style={{ position:'absolute', width:36, height:36, ...s }} />
-      ))}
-
-      {/* Card */}
       <div style={{
-        position:'relative', zIndex:10, width:'100%', maxWidth:420, margin:'0 16px',
-        background:'rgba(255,255,255,.04)', border:'1px solid rgba(0,122,138,.25)',
-        borderRadius:6, padding:'48px 40px',
-        boxShadow:'0 0 60px rgba(0,0,0,.5), inset 0 1px 0 rgba(255,255,255,.05)',
-      }}>
+        position:'relative', zIndex:1,
+        width:'100%', maxWidth:380,
+        margin:'0 20px',
+      }} className="fade-up">
+
         {/* Logo */}
-        <div style={{ textAlign:'center', marginBottom:36 }}>
+        <div style={{ textAlign:'center', marginBottom:32 }}>
           <div style={{
-            display:'inline-flex', alignItems:'center', justifyContent:'center',
-            width:52, height:52, marginBottom:14,
-            border:'1px solid rgba(0,122,138,.5)', borderRadius:4,
-            background:'rgba(0,122,138,.08)',
+            width:64, height:64, borderRadius:18,
+            background:'linear-gradient(145deg,#0071e3,#34aadc)',
+            margin:'0 auto 16px',
+            display:'flex', alignItems:'center', justifyContent:'center',
+            boxShadow:'0 8px 24px rgba(0,113,227,.3)',
           }}>
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none">
-              <polygon points="12,2 22,8 22,16 12,22 2,16 2,8" stroke="#00c9b8" strokeWidth="1.5" fill="none"/>
-              <polygon points="12,6 18,10 18,14 12,18 6,14 6,10" stroke="#00c9b8" strokeWidth="1" fill="rgba(0,201,184,.1)"/>
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none">
+              <rect x="3" y="3" width="8" height="8" rx="2.5" fill="rgba(255,255,255,.95)"/>
+              <rect x="13" y="3" width="8" height="8" rx="2.5" fill="rgba(255,255,255,.6)"/>
+              <rect x="3" y="13" width="8" height="8" rx="2.5" fill="rgba(255,255,255,.6)"/>
+              <rect x="13" y="13" width="8" height="8" rx="2.5" fill="rgba(255,255,255,.95)"/>
             </svg>
           </div>
-          <div style={{ color:'#00c9b8', fontSize:11, letterSpacing:6, marginBottom:4, fontWeight:600 }}>
-            UNITED GROUP
+          <div style={{ fontSize:26, fontWeight:700, color:'var(--text)', letterSpacing:-.5, marginBottom:4 }}>
+            United Group
           </div>
-          <div style={{ color:'rgba(255,255,255,.3)', fontSize:10, letterSpacing:3 }}>
-            HR COMMAND SYSTEM
+          <div style={{ fontSize:15, color:'var(--text3)' }}>
+            HR Command System
           </div>
         </div>
 
-        {/* Divider */}
-        <div style={{ display:'flex', alignItems:'center', gap:10, marginBottom:28 }}>
-          <div style={{ flex:1, height:'1px', background:'rgba(0,122,138,.2)' }} />
-          <span style={{ color:'rgba(0,122,138,.5)', fontSize:9, letterSpacing:3 }}>SECURE ACCESS</span>
-          <div style={{ flex:1, height:'1px', background:'rgba(0,122,138,.2)' }} />
-        </div>
-
-        {/* Form */}
-        <div style={{ display:'flex', flexDirection:'column', gap:14 }}>
-          <div>
-            <div style={{ color:'rgba(0,201,184,.7)', fontSize:9, letterSpacing:2, marginBottom:7, fontWeight:600 }}>
-              EMAIL ADDRESS
-            </div>
-            <input
-              type="email" value={email}
-              onChange={e => setEmail(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && document.getElementById('pwd-input')?.focus()}
-              placeholder="your@email.com"
-              style={{
-                width:'100%', boxSizing:'border-box',
-                background:'rgba(0,122,138,.06)', border:'1px solid rgba(0,122,138,.25)',
-                borderRadius:3, padding:'11px 13px', color:'#fff', fontSize:13,
-                fontFamily:"'DM Sans', sans-serif", outline:'none', letterSpacing:.5,
-              }}
-            />
-          </div>
-
-          <div>
-            <div style={{ color:'rgba(0,201,184,.7)', fontSize:9, letterSpacing:2, marginBottom:7, fontWeight:600 }}>
-              PASSWORD
-            </div>
-            <input
-              id="pwd-input" type="password" value={password}
-              onChange={e => setPassword(e.target.value)}
-              onKeyDown={e => e.key === 'Enter' && handleLogin()}
-              placeholder="••••••••"
-              style={{
-                width:'100%', boxSizing:'border-box',
-                background:'rgba(0,122,138,.06)', border:'1px solid rgba(0,122,138,.25)',
-                borderRadius:3, padding:'11px 13px', color:'#fff', fontSize:13,
-                fontFamily:"'DM Sans', sans-serif", outline:'none',
-              }}
-            />
-          </div>
+        {/* Card */}
+        <div style={{
+          background:'rgba(255,255,255,.85)',
+          backdropFilter:'blur(20px) saturate(180%)',
+          WebkitBackdropFilter:'blur(20px) saturate(180%)',
+          border:'1px solid rgba(255,255,255,.6)',
+          borderRadius:var(--r-2xl),
+          padding:'28px 28px 24px',
+          boxShadow:'0 8px 32px rgba(0,0,0,.08), 0 2px 8px rgba(0,0,0,.04)',
+        } as any}>
 
           {error && (
             <div style={{
-              background:'rgba(200,48,48,.08)', border:'1px solid rgba(200,48,48,.3)',
-              borderRadius:3, padding:'9px 13px', color:'#ff6b6b', fontSize:12,
-            }}>
-              ⚠ {error}
+              background:'rgba(255,59,48,.06)',
+              border:'1px solid rgba(255,59,48,.2)',
+              borderRadius:var(--r-md),
+              padding:'10px 14px',
+              marginBottom:16,
+              fontSize:13.5,
+              color:'var(--apple-red)',
+              display:'flex',
+              alignItems:'center',
+              gap:8,
+            } as any}>
+              <span>⚠</span> {error}
             </div>
           )}
 
+          <div style={{ marginBottom:14 }}>
+            <label style={{ fontSize:13, fontWeight:500, color:'var(--text2)', display:'block', marginBottom:6 }}>
+              Email Address
+            </label>
+            <input
+              type="email" value={email}
+              onChange={e => setEmail(e.target.value)}
+              onKeyDown={e => e.key==='Enter' && document.getElementById('pwd')?.focus()}
+              placeholder="name@company.com"
+              className="input-apple"
+              autoComplete="email"
+              autoFocus
+            />
+          </div>
+
+          <div style={{ marginBottom:20 }}>
+            <label style={{ fontSize:13, fontWeight:500, color:'var(--text2)', display:'block', marginBottom:6 }}>
+              Password
+            </label>
+            <input
+              id="pwd" type="password" value={password}
+              onChange={e => setPassword(e.target.value)}
+              onKeyDown={e => e.key==='Enter' && handleLogin()}
+              placeholder="Enter your password"
+              className="input-apple"
+              autoComplete="current-password"
+            />
+          </div>
+
           <button
             onClick={handleLogin} disabled={loading}
-            style={{
-              marginTop:6, width:'100%', padding:'12px',
-              background: loading ? 'rgba(0,122,138,.06)' : 'rgba(0,122,138,.15)',
-              border:'1px solid rgba(0,122,138,.5)', borderRadius:3,
-              color: loading ? 'rgba(0,201,184,.4)' : '#00c9b8',
-              fontSize:10, letterSpacing:4, fontFamily:"'DM Sans', sans-serif",
-              cursor: loading ? 'not-allowed' : 'pointer', fontWeight:600,
-              transition:'all .2s',
-            }}
+            className="btn-apple btn-primary"
+            style={{ width:'100%', height:44, fontSize:15, fontWeight:500 }}
           >
-            {loading ? 'AUTHENTICATING...' : 'SIGN IN →'}
+            {loading ? (
+              <span style={{ display:'flex', alignItems:'center', gap:8, justifyContent:'center' }}>
+                <span className="spinner" style={{ width:16, height:16, borderWidth:2 }} />
+                Signing in...
+              </span>
+            ) : 'Sign In'}
           </button>
         </div>
 
-        <div style={{ marginTop:28, textAlign:'center', color:'rgba(255,255,255,.12)', fontSize:10, letterSpacing:2 }}>
-          USG · UST · USG-M · UG
+        <div style={{ textAlign:'center', marginTop:20, fontSize:12, color:'var(--text3)' }}>
+          USG · UST · USG-M · UG &nbsp;·&nbsp; United Group Holding
         </div>
       </div>
     </div>
