@@ -80,7 +80,7 @@ export default function Sidebar() {
             <Link key={item.href} href={item.href!} style={{
               display:'flex', alignItems:'center', gap:8,
               padding:'8px 10px', textDecoration:'none',
-              borderRadius:var(--r-md),
+              borderRadius: 'var(--r-md)',
               color: active ? 'var(--apple-blue)' : 'var(--text2)',
               background: active ? 'rgba(0,113,227,.08)' : 'transparent',
               fontSize:14, fontWeight: active ? 500 : 400,
