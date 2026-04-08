@@ -33,19 +33,19 @@ export default function LoginPage() {
       display:'flex',
       alignItems:'center',
       justifyContent:'center',
-      fontFamily:'-apple-system,"SF Pro Text","Helvetica Neue",sans-serif',
+      fontFamily:'-apple-system,"SF Pro Text","Helvetica Neue",sans-serif'
     }} />
       {/* Background gradient - Apple style */}
       <div style={{
         position:'fixed', inset:0, zIndex:0,
         background:'radial-gradient(ellipse 80% 60% at 50% -10%, rgba(0,113,227,.08) 0%, transparent 70%)',
-        pointerEvents:'none',
+        pointerEvents:'none'
       }} />
 
       <div style={{
         position:'relative', zIndex:1,
         width:'100%', maxWidth:380,
-        margin:'0 20px',
+        margin:'0 20px'
       }} className="fade-up">
 
         {/* Logo */}
@@ -65,10 +65,10 @@ export default function LoginPage() {
             </svg>
           </div>
           <div style={{ fontSize:26, fontWeight:700, color:'var(--text)', letterSpacing:-.5, marginBottom:4 }}>
-            United Group
+            United Group Holding
           </div>
           <div style={{ fontSize:15, color:'var(--text3)' }}>
-            HR Command System
+            HRMS - USG
           </div>
         </div>
 
