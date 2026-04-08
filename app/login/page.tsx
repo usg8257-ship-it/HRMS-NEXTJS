@@ -34,7 +34,7 @@ export default function LoginPage() {
       alignItems:'center',
       justifyContent:'center',
       fontFamily:'-apple-system,"SF Pro Text","Helvetica Neue",sans-serif',
-    }}>
+    }} />
       {/* Background gradient - Apple style */}
       <div style={{
         position:'fixed', inset:0, zIndex:0,
